@@ -6,14 +6,14 @@ import {
     faBookmark,
     faHome, faLock, faTag
 } from "@fortawesome/free-solid-svg-icons";
-import styles from "@/styles/Sidebar.module.css";
+import styles from "../../../styles/Sidebar.module.css";
 
 const Sidebar = () => {
     return (
         <aside className={styles.sidebar}>
             <div className={styles.sidebar_logo}>
-                <img src="/images/logo/logo.webp" alt="" />
-                <h3>سبزلرن</h3>
+                <img src="/images/logo/logo2.png" alt="" />
+                <h3>آرش الطافی</h3>
             </div>
             <ul className={styles.sidebar_links}>
                 <li>

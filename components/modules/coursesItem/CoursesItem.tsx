@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "@/styles/Course.module.css";
+import styles from "../../../styles/Course.module.css";
 import EditModal from "../../templates/index/EditModal";
 import DeleteModal from "../../templates/index/DeleteModal";
 

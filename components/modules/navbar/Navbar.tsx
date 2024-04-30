@@ -3,7 +3,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import styles from "@/styles/Navbar.module.css";
+import styles from "../../../styles/Navbar.module.css";
 
 const Navbar = () => {
   return (

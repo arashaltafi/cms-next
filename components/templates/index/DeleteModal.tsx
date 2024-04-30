@@ -1,4 +1,4 @@
-import styles from "@/styles/Modal.module.css";
+import styles from "../../../styles/Modal.module.css";
 
 const DeleteModal = ({ hideDeleteModal }: any) => {
   return (

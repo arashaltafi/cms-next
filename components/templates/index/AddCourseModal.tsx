@@ -3,7 +3,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCashRegister, faFile, faTag, faUser } from "@fortawesome/free-solid-svg-icons";
-import styles from "@/styles/Modal.module.css";
+import styles from "../../../styles/Modal.module.css";
 
 const AddCourseModal = ({ hideAddCourseModal }: any) => {
     return (

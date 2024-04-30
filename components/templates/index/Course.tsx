@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AddCourseModal from "./AddCourseModal";
-import styles from "@/styles/Course.module.css";
+import styles from "../../../styles/Course.module.css";
 import CoursesItem from "../../modules/coursesItem/CoursesItem";
 
 const Course = () => {
