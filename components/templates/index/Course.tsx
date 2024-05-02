@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddCourseModal from "./AddCourseModal";
 import styles from "../../../styles/Course.module.css";
 import CoursesItem from "../../modules/coursesItem/CoursesItem";
+import { useRouter } from "next/router";
 
 type course = { _id: string, title: string }[]
 
@@ -13,6 +14,8 @@ const Course = (props: CourseProps) => {
   const [data, setData] = useState<course | undefined>(props.data)
   const [showAddCourseModal, setShowAddCourseModal] = useState(false)
 
+  const router = useRouter()
+
   const hideAddCourseModal = () => setShowAddCourseModal(false)
 
   const getCourses = async () => {
@@ -22,6 +25,8 @@ const Course = (props: CourseProps) => {
     if (response.status === 200) {
       setData(res.data)
     }
+
+    router.push('/')
   }
 
   return (

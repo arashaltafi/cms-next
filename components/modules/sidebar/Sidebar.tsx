@@ -24,7 +24,10 @@ const Sidebar = () => {
         setShowDeleteModal(false)
         if (response.status === 200) {
             showToast(data.message, "success")
-            router.reload()
+            router.push('/')
+            setTimeout(() => {
+                router.reload()
+            }, 200);
         } else {
             showToast(data.message, "error")
         }
