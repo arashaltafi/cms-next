@@ -36,6 +36,7 @@ const EditModal = (props: EditModalProps) => {
                     <div className={styles.input_field}>
                         <span><FontAwesomeIcon icon={faTag} /></span>
                         <input
+                            autoFocus
                             type="text"
                             placeholder="نام دوره"
                             value={props.title}

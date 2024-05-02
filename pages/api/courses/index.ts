@@ -27,10 +27,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     } else if (req.method === "GET") {
         try {
-            const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
-            return res.status(200).send({
-                data: courses
-            })
+            const { title } = req.query
+            if (!title || title == '' || typeof (title) !== "string" || title.trim() == '') { //get all
+                const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
+                return res.status(200).send({
+                    data: courses
+                })
+            } else { //search
+                const courses = await coursesModel.find({ title: { $regex: title } }, { title: 1 }).sort({ _id: -1 })
+                return res.status(200).send({
+                    data: courses
+                })
+            }
         } catch (error: any) {
             console.log('error:', error.message)
             return res.status(500).send({
@@ -40,7 +48,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } else if (req.method === "PUT") {
         try {
             const { id, title } = req.body;
-            
+
             if (!id || id.length < 10) {
                 return res.status(400).send({
                     message: "Course id is not valid !!!"

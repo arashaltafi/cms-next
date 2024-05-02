@@ -12,19 +12,36 @@ const Index = ({ courses }: { courses: { _id: string, title: string }[] }) => {
   )
 };
 
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   connectToDB()
-  const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
+  const { query } = context
 
-  if (courses) {
-    return {
-      props: {
-        courses: JSON.parse(JSON.stringify(courses))
+  if (!query.title || query.title == '' || query.title.trim() == '') { //get all
+    const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
+    if (courses) {
+      return {
+        props: {
+          courses: JSON.parse(JSON.stringify(courses))
+        }
+      }
+    } else {
+      return {
+        notFound: true
       }
     }
-  } else {
-    return {
-      notFound: true
+  } else { //search
+    const coursesSearched =
+      await coursesModel.find({ title: { $regex: query.title } }, { title: 1 }).sort({ _id: -1 })
+    if (coursesSearched) {
+      return {
+        props: {
+          courses: JSON.parse(JSON.stringify(coursesSearched))
+        }
+      }
+    } else {
+      return {
+        notFound: true
+      }
     }
   }
 }

@@ -47,6 +47,7 @@ const AddCourseModal = (props: AddCourseModalProps) => {
                     <div className={styles.input_field}>
                         <span><FontAwesomeIcon icon={faTag} /></span>
                         <input
+                            autoFocus
                             type="text"
                             placeholder="عنوان دوره"
                             value={title}
