@@ -74,6 +74,7 @@
     transition: all 0.4s;
     position: relative;
     font-size: 1.6rem;
+    cursor: pointer;
 }
 
 .new_course_btn:hover::before ,

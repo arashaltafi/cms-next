@@ -22,7 +22,7 @@ const AddCourseModal = (props: AddCourseModalProps) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ title })
+            body: JSON.stringify({ title: title.trim() })
         })
         const data = await response.json()
         if (response.status === 201) {

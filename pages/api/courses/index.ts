@@ -37,6 +37,39 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 message: "UnKhown Internal Server Error !!!"
             })
         }
+    } else if (req.method === "PUT") {
+        try {
+            const { id, title } = req.body;
+            
+            if (!id || id.length < 10) {
+                return res.status(400).send({
+                    message: "Course id is not valid !!!"
+                })
+            }
+
+            if (!title || title.length < 0) {
+                return res.status(400).send({
+                    message: "Course title is not valid !!!"
+                })
+            }
+
+            await coursesModel.findOneAndUpdate(
+                { _id: id },
+                { title: title }
+            )
+            return res.status(200).send({
+                message: "Course Updated Successfully :)"
+            })
+        } catch (error: any) {
+            console.log('error:', error.message)
+            return res.status(500).send({
+                message: "UnKhown Internal Server Error !!!"
+            })
+        }
+    } else {
+        return res.status(400).send({
+            message: "This Method Dosen't Support !!!"
+        })
     }
 }
 

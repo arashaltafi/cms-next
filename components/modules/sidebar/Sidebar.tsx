@@ -2,13 +2,34 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faBookmark,
-    faHome, faLock, faTag
-} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faHome, faLock, faTag } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../../styles/Sidebar.module.css";
+import { showToast } from "../../../utils/Toast";
+import { useState } from "react";
+import DeleteAllModal from "./DeleteAllModal";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const router = useRouter()
+
+    const hideDeleteModal = () => setShowDeleteModal(false);
+
+    const handleDeleteAll = async () => {
+        const response = await fetch('/api/deleteAll', {
+            method: "DELETE"
+        })
+        const data = await response.json()
+
+        setShowDeleteModal(false)
+        if (response.status === 200) {
+            showToast(data.message, "success")
+            router.reload()
+        } else {
+            showToast(data.message, "error")
+        }
+    }
+
     return (
         <aside className={styles.sidebar}>
             <div className={styles.sidebar_logo}>
@@ -17,8 +38,7 @@ const Sidebar = () => {
             </div>
             <ul className={styles.sidebar_links}>
                 <li>
-                    <a href="#" className={styles.active || styles.sidebar_link}>
-                        {/* add active to enable link */}
+                    <a className={styles.active || styles.sidebar_link}>
                         <span>
                             <FontAwesomeIcon icon={faHome} />
                         </span>
@@ -26,7 +46,7 @@ const Sidebar = () => {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className={styles.sidebar_links}>
+                    <a className={styles.sidebar_links}>
                         <span>
                             <FontAwesomeIcon icon={faTag} />
                         </span>
@@ -34,7 +54,7 @@ const Sidebar = () => {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className={styles.sidebar_links}>
+                    <a className={styles.sidebar_links}>
                         <span>
                             <FontAwesomeIcon icon={faBookmark} />
                         </span>
@@ -43,13 +63,17 @@ const Sidebar = () => {
                 </li>
             </ul>
             <div className={styles.sidebar_logout}>
-                <a href="#" className={styles.logout}>
+                <a onClick={() => setShowDeleteModal(true)} className={styles.logout}>
                     <span>
                         <FontAwesomeIcon icon={faLock} />
                     </span>
-                    خروج
+                    حذف همه
                 </a>
             </div>
+
+            {showDeleteModal &&
+                <DeleteAllModal hideDeleteModal={hideDeleteModal} deleteAllCourse={handleDeleteAll} />
+            }
         </aside>
     )
 }
