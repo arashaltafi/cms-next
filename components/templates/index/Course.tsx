@@ -3,14 +3,26 @@ import AddCourseModal from "./AddCourseModal";
 import styles from "../../../styles/Course.module.css";
 import CoursesItem from "../../modules/coursesItem/CoursesItem";
 
+type course = { title: string }[]
+
 interface CourseProps {
-  data: { title: string }[]
+  data: course
 }
 
 const Course = (props: CourseProps) => {
-  const [showAddCourseModal, setShowAddCourseModal] = useState(false);
+  const [data, setData] = useState<course | undefined>(props.data)
+  const [showAddCourseModal, setShowAddCourseModal] = useState(false)
 
-  const hideAddCourseModal = () => setShowAddCourseModal(false);
+  const hideAddCourseModal = () => setShowAddCourseModal(false)
+
+  const getCourses = async () => {
+    const response = await fetch('/api/courses')
+    const res = await response.json()
+
+    if (response.status === 200) {
+      setData(res.data)
+    }
+  }
 
   return (
     <>
@@ -27,15 +39,15 @@ const Course = (props: CourseProps) => {
         </div>
         <ul className={styles.courses_list}>
           {
-            props.data.map(data => (
-              <CoursesItem title={data.title} image="/images/courses/PWA.jpg" />
+            data?.map((data, index) => (
+              <CoursesItem key={index} title={data.title} image="/images/courses/PWA.jpg" />
             ))
           }
         </ul>
       </section>
 
       {showAddCourseModal && (
-        <AddCourseModal hideAddCourseModal={hideAddCourseModal} />
+        <AddCourseModal hideAddCourseModal={hideAddCourseModal} getCourses={getCourses} />
       )}
     </>
   );

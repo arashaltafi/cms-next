@@ -7,7 +7,12 @@ import styles from "../../../styles/Modal.module.css";
 import { useState } from "react";
 import { showToast } from "../../../utils/Toast";
 
-const AddCourseModal = ({ hideAddCourseModal }: any) => {
+interface AddCourseModalProps {
+    hideAddCourseModal: () => void,
+    getCourses: () => void
+}
+
+const AddCourseModal = (props: AddCourseModalProps) => {
     const [title, setTitle] = useState<string>("")
 
     const addNewCourse = async (e: any) => {
@@ -23,7 +28,8 @@ const AddCourseModal = ({ hideAddCourseModal }: any) => {
         if (response.status === 201) {
             showToast(data.message, "success")
             setTitle('')
-            hideAddCourseModal()
+            props.getCourses()
+            props.hideAddCourseModal()
         } else {
             showToast(data.message, "error")
         }
@@ -31,7 +37,7 @@ const AddCourseModal = ({ hideAddCourseModal }: any) => {
 
     return (
         <div className={styles.modal_container} id="add-new-course-modal">
-            <div className={styles.modal_bg} onClick={hideAddCourseModal}></div>
+            <div className={styles.modal_bg} onClick={props.hideAddCourseModal}></div>
             <div className={styles.modal_content}>
 
                 <h1 className={styles.modal_title}>اضافه کردن دوره جدید</h1>

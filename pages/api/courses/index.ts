@@ -24,6 +24,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 message: "UnKhown Internal Server Error !!!"
             })
         }
+    } else if (req.method === "GET") {
+        try {
+            const courses = await coursesModel.find({}, { _id: 0, title: 1 }).sort({ _id: -1 })
+            res.status(200).send({
+                data: courses
+            })
+        } catch (error) {
+            res.status(500).send({
+                message: "UnKhown Internal Server Error !!!"
+            })
+        }
     }
 }
 
