@@ -3,7 +3,7 @@ import AddCourseModal from "./AddCourseModal";
 import styles from "../../../styles/Course.module.css";
 import CoursesItem from "../../modules/coursesItem/CoursesItem";
 
-type course = { title: string }[]
+type course = { _id: string, title: string }[]
 
 interface CourseProps {
   data: course
@@ -30,7 +30,6 @@ const Course = (props: CourseProps) => {
         <div className={styles.courses_top}>
           <h2 className={styles.courses_title}>دوره ها</h2>
           <a
-            href="#"
             className={styles.new_course_btn}
             onClick={() => setShowAddCourseModal(true)}
           >
@@ -40,7 +39,13 @@ const Course = (props: CourseProps) => {
         <ul className={styles.courses_list}>
           {
             data?.map((data, index) => (
-              <CoursesItem key={index} title={data.title} image="/images/courses/PWA.jpg" />
+              <CoursesItem
+                key={index}
+                _id={data._id}
+                title={data.title}
+                image="/images/courses/PWA.jpg"
+                getCourses={getCourses}
+              />
             ))
           }
         </ul>

@@ -5,10 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCashRegister, faTag, faUser } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../../styles/Modal.module.css";
 
-const EditModal = ({ hideEditModal }: any) => {
+interface EditModalProps {
+    hideEditModal: () => void
+}
+
+const EditModal = (props: EditModalProps) => {
     return (
         <div className={styles.modal_container} id="edit-modal">
-            <div className={styles.modal_bg} onClick={hideEditModal}></div>
+            <div className={styles.modal_bg} onClick={props.hideEditModal}></div>
             <div className={styles.modal_content}>
 
                 <h1 className={styles.modal_title}>اطلاعات جدید را وارد کنید</h1>

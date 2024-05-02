@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     } else if (req.method === "GET") {
         try {
-            const courses = await coursesModel.find({}, { _id: 0, title: 1 }).sort({ _id: -1 })
+            const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
             return res.status(200).send({
                 data: courses
             })

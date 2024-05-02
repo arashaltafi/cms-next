@@ -3,7 +3,7 @@ import connectToDB from "../utils/db";
 import coursesModel from "../models/Course"
 import { ToastContainer } from "react-toastify";
 
-const Index = ({ courses }: { courses: { title: string }[] }) => {
+const Index = ({ courses }: { courses: { _id: string, title: string }[] }) => {
   return (
     <>
       <ToastContainer />
@@ -14,7 +14,7 @@ const Index = ({ courses }: { courses: { title: string }[] }) => {
 
 export async function getStaticProps(context: any) {
   connectToDB()
-  const courses = await coursesModel.find({}, { _id: 0, title: 1 }).sort({ _id: -1 })
+  const courses = await coursesModel.find({}, { title: 1 }).sort({ _id: -1 })
 
   if (courses) {
     return {
