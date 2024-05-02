@@ -1,21 +1,31 @@
 import Course from "../components/templates/index/Course";
 import connectToDB from "../utils/db";
 import coursesModel from "../models/Course"
+import { ToastContainer } from "react-toastify";
 
-const Index = () => {
+const Index = ({ courses }: { courses: { title: string }[] }) => {
   return (
-    <Course />
+    <>
+      <ToastContainer />
+      <Course data={courses} />
+    </>
   )
 };
 
 export async function getStaticProps(context: any) {
   connectToDB()
-  const courses = await coursesModel.find({})
-  
-  console.log(courses);
+  const courses = await coursesModel.find({}, { _id: 0, title: 1 }).sort({ _id: -1 })
 
-  return {
-    props: {}
+  if (courses) {
+    return {
+      props: {
+        courses: JSON.parse(JSON.stringify(courses))
+      }
+    }
+  } else {
+    return {
+      notFound: true
+    }
   }
 }
 

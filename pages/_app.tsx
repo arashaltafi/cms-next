@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "../components/modules/navbar/Navbar";
 import Sidebar from "../components/modules/sidebar/Sidebar";
 

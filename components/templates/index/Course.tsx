@@ -3,7 +3,11 @@ import AddCourseModal from "./AddCourseModal";
 import styles from "../../../styles/Course.module.css";
 import CoursesItem from "../../modules/coursesItem/CoursesItem";
 
-const Course = () => {
+interface CourseProps {
+  data: { title: string }[]
+}
+
+const Course = (props: CourseProps) => {
   const [showAddCourseModal, setShowAddCourseModal] = useState(false);
 
   const hideAddCourseModal = () => setShowAddCourseModal(false);
@@ -22,11 +26,11 @@ const Course = () => {
           </a>
         </div>
         <ul className={styles.courses_list}>
-          <CoursesItem title="دوره PWA" image="/images/courses/PWA.jpg" />
-          <CoursesItem
-            title="دوره جاوا اسکریپت"
-            image="/images/courses/js.png"
-          />
+          {
+            props.data.map(data => (
+              <CoursesItem title={data.title} image="/images/courses/PWA.jpg" />
+            ))
+          }
         </ul>
       </section>
 
