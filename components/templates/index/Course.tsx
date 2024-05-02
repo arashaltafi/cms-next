@@ -48,7 +48,7 @@ const Course = (props: CourseProps) => {
                 key={index}
                 _id={data._id}
                 title={data.title}
-                image="/images/courses/PWA.jpg"
+                image="https://arashaltafi.ir/arash.jpg"
                 getCourses={getCourses}
               />
             ))

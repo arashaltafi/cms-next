@@ -3,6 +3,7 @@ import styles from "../../../styles/Course.module.css";
 import EditModal from "../../templates/index/EditModal";
 import DeleteModal from "../../templates/index/DeleteModal";
 import { showToast } from "../../../utils/Toast";
+import Image from "next/image";
 
 interface CoursesItemProps {
   _id: string,
@@ -60,10 +61,14 @@ const CoursesItem = (props: CoursesItemProps) => {
     <>
       <li className={styles.courses_item}>
         <div className={styles.courses_img_title}>
-          <img
+          <Image
+            className={styles.courses_img}
             src={props.image}
             alt="course-item-img"
-            className={styles.courses_img}
+            width={100}
+            height={100}
+            quality="50"
+            loading='lazy'
           />
           <h5 className={styles.courses_name}>{props.title}</h5>
         </div>
@@ -71,7 +76,7 @@ const CoursesItem = (props: CoursesItemProps) => {
           <a
             className={styles.courses_btn_edit}
             onClick={() => {
-              setTitleUpdate(props.title)              
+              setTitleUpdate(props.title)
               setShowEditModal(true)
             }}
           >
